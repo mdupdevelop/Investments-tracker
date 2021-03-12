@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 
 
 # account credentials
-username = "mdupinvest@gmail.com"
-password = "hWKD791KL4OYxQJeStBY"
+username = ""
+password = ""
 #preparation for future csv file
 data=[]
 # Connect to mail
