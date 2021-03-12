@@ -6,11 +6,13 @@ import hashlib
 import datetime
 import time
 import pandas as pd
+import os
 
+print("Running Gemini")
 
 url = "https://api.gemini.com/v1/mytrades"
-gemini_api_key = ""
-gemini_api_secret = "".encode()
+gemini_api_key = os.environ.get('GEMINI_APIKEY')
+gemini_api_secret = os.environ.get('GEMINI_APISECRET').encode()
 
 t = datetime.datetime.now()
 payload_nonce =  str(int(time.mktime(t.timetuple())*1000))

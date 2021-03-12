@@ -1,9 +1,11 @@
+import os
 import boto3
 from botocore.exceptions import ClientError
 
+print("Updating to AWS")
 
-ACCESS_KEY = ''
-SECRET_KEY = ''
+ACCESS_KEY = os.environ.get('AWS_ACCESSKEY')
+SECRET_KEY = os.environ.get('AWS_SECRETKEY')
 
 
 def upload_to_aws(local_file, bucket, s3_file):

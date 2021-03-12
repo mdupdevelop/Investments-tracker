@@ -6,10 +6,11 @@ import os
 import pandas as pd
 from bs4 import BeautifulSoup
 
-
+print("Running T212")
 # account credentials
-username = ""
-password = ""
+username = os.environ.get('GMAIL_USER')
+password = os.environ.get('GMAIL_PASS')
+
 #preparation for future csv file
 data=[]
 # Connect to mail
@@ -42,16 +43,15 @@ if retcode == 'OK':
                 if isinstance(subject, bytes):
                     # if it's a bytes, decode to str
                     subject = subject.decode(encoding)
-                    print("Subject retrieved")
                 else:
                     subject = (original['SUBJECT'])
-                    print("Subject retrieved")
 
+                print("Info recieved")
                 if ((From == 'Trading 212 <noreply@trading212.com>') and (subject == 'Contract Note Statement from Trading 212')): #Emails from Trading212 official adress and subject
+                    print("Relevant email retrievings")
                     # multipart body, not a text/plain text
                     if original.is_multipart():
                         # iterate over email parts
-                        print("Message is multipart")
                         for part in original.walk():
                             # extract content type of email
                             content_type = part.get_content_type()
@@ -59,7 +59,6 @@ if retcode == 'OK':
                             try:
                                 # get the email body
                                 body = part.get_payload(decode=True).decode()
-                                print("Body of email retrieved")
                             except:
                                 pass
                             if content_type == "text/html" and "attachment" not in content_disposition:
@@ -76,7 +75,6 @@ if retcode == 'OK':
                                 #first and last item of header list is ''
                                 header_list.pop(0)
                                 header_list.pop()
-                                print("Email header processed")
                                 #Data assigned to columns
                                 HTML_data = soup.find_all("tbody")[2].find_all("tr")[1:] 
                                 totalcontent= []
