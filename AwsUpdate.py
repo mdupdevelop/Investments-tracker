@@ -22,4 +22,5 @@ def upload_to_aws(local_file, bucket, s3_file):
 
 
 
-uploaded = upload_to_aws('Trading212Trades.csv', 'investingreporting', 'Trading212Trades.csv')
+uploadedT212 = upload_to_aws('Trading212Trades.csv', 'investingreporting', 'Trading212Trades.csv')
+uploadedGemini = upload_to_aws('GeminiTrades.csv', 'investingreporting', 'Trading212Trades.csv')

@@ -100,11 +100,11 @@ if retcode == 'OK':
                                     originalDF = pd.read_csv('Trading212Trades.csv')
                                     T212InfoDF = pd.DataFrame(totalcontent, columns = header_list) 
                                     originalDF = originalDF.append(T212InfoDF)
-                                    originalDF.to_csv('Test.csv', index=False)      
+                                    originalDF.to_csv('Trading212Trades.csv', index=False)      
                                     print("New CSV exported")     
                                 except:
                                     T212InfoDF = pd.DataFrame(totalcontent, columns = header_list) 
-                                    T212InfoDF.to_csv('Test.csv', index=False)      
+                                    T212InfoDF.to_csv('Trading212Trades.csv', index=False)      
                                     print("New CSV exported")                        
                 else: mail.store(num, '-FLAGS', '\Seen')   # Set other emails back to Unread
 
