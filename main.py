@@ -3,7 +3,7 @@ try:
     import Gemini 
     import AwsUpdate 
 except:
-    print('oh shit')
+    print('Something went wrong')
 
 
 
