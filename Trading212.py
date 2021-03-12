@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 
 
 # account credentials
-username = ""
-password = ""
+username = "mdupinvest@gmail.com"
+password = "hWKD791KL4OYxQJeStBY"
 #preparation for future csv file
 data=[]
 # Connect to mail
@@ -98,11 +98,16 @@ if retcode == 'OK':
 
                                 # Storing the data into Pandas 
                                 # DataFrame  
-                                originalDF = pd.read_csv('Trading212Trades.csv')
-                                T212InfoDF = pd.DataFrame(totalcontent, columns = header_list) 
-                                originalDF = originalDF.append(T212InfoDF)
-                                originalDF.to_csv('Test.csv', index=False)      
-                                print("New CSV exported")         
+                                try:
+                                    originalDF = pd.read_csv('Trading212Trfefsades.csv')
+                                    T212InfoDF = pd.DataFrame(totalcontent, columns = header_list) 
+                                    originalDF = originalDF.append(T212InfoDF)
+                                    originalDF.to_csv('Tdaest1.csv', index=False)      
+                                    print("New CSV exported") 
+                                except:
+                                    T212InfoDF = pd.DataFrame(totalcontent, columns = header_list) 
+                                    T212InfoDF.to_csv('Test1.csv', index=False)      
+                                    print("New CSV exported")                       
                 else: mail.store(num, '-FLAGS', '\Seen')   # Set other emails back to Unread
 
 
