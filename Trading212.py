@@ -6,16 +6,33 @@ import os
 import pandas as pd
 from bs4 import BeautifulSoup
 
+def clean_currency(x):
+    """ If the value is a string, then remove currency symbol and delimiters
+    otherwise, the value is numeric and can be converted
+    """
+    if isinstance(x, str):
+        return(x.replace('CZK', '').replace(' ',''))
+    return(x)
+
+def transferDF(df):
+    """ Transfer columns containing currency into floats and create new currency column """
+    df['Total amount'] = df['Total amount'].apply(clean_currency).astype('float')
+    df['Price'] = df['Price'].apply(clean_currency).astype('float')
+    df['Total cost'] = df['Total cost'].apply(clean_currency).astype('float')
+    df.insert(7,'Currency','CZK')
+
+
+
 print("Running T212")
 # account credentials
-username = os.environ.get('GMAIL_USER')
-password = os.environ.get('GMAIL_PASS')
+username = ''
+password = ''
 
 #preparation for future csv file
 data=[]
 # Connect to mail
 mail = imaplib.IMAP4_SSL('imap.gmail.com')
-(retcode, capabilities) = mail.login(username,password )
+(retcode, capabilities) = mail.login(username,password)
 mail.list()
 mail.select('inbox')
 
@@ -99,11 +116,13 @@ if retcode == 'OK':
                                 try:
                                     originalDF = pd.read_csv('Trading212Trades.csv')
                                     T212InfoDF = pd.DataFrame(totalcontent, columns = header_list) 
+                                    transferDF(T212InfoDF)
                                     originalDF = originalDF.append(T212InfoDF)
                                     originalDF.to_csv('Trading212Trades.csv', index=False)      
                                     print("New CSV exported")     
                                 except:
                                     T212InfoDF = pd.DataFrame(totalcontent, columns = header_list) 
+                                    transferDF(T212InfoDF)
                                     T212InfoDF.to_csv('Trading212Trades.csv', index=False)      
                                     print("New CSV exported")                        
                 else: mail.store(num, '-FLAGS', '\Seen')   # Set other emails back to Unread
